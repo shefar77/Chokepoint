@@ -1,0 +1,4 @@
+- events_fix: Fixed _get_conn import in events.py - changed from __import__("app.db")._get_conn() to direct _get_conn() with proper import
+- metrics_fix: Fixed find_chokepoints NameError in metrics.py - added import from app.graph.solver and aliased as solve_chokepoints
+- schema_404: /api/schema returns 404; correct endpoint is /api/cypher/schema (documentation issue, not code bug)
+- graph_structure: Single-line graph in UI is due to GraphView.tsx limiting to top 8 paths; full graph available via /api/graph/overview

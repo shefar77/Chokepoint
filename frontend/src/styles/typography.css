@@ -1,0 +1,132 @@
+/* Three typefaces, used for three jobs: editorial, interface, data. */
+
+body {
+  font-family: var(--font-ui);
+  font-size: var(--fs-base);
+  line-height: var(--lh-base);
+  font-feature-settings: 'kern' 1, 'liga' 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+.display {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  margin: 0;
+}
+
+h1 {
+  font-size: var(--fs-28);
+}
+
+h2 {
+  font-size: var(--fs-20);
+}
+
+h3 {
+  font-size: var(--fs-16);
+  font-weight: 600;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-28);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.wordmark-caption {
+  font-family: var(--font-mono);
+  font-size: var(--fs-11);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+/* Small caps labels: the only heading style inside panels. */
+.label {
+  font-family: var(--font-ui);
+  font-size: var(--fs-11);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.section-number {
+  font-family: var(--font-mono);
+  font-size: var(--fs-11);
+  letter-spacing: 0.06em;
+  color: var(--ink-3);
+  margin-right: var(--s-2);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--fs-12);
+}
+
+.mono-sm {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--fs-11);
+  color: var(--ink-2);
+}
+
+.numeral {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--fs-44);
+  line-height: 1;
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: -0.02em;
+}
+
+.numeral-sm {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--fs-28);
+  line-height: 1;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.numeral-caption {
+  font-family: var(--font-mono);
+  font-size: var(--fs-11);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.lede {
+  font-family: var(--font-display);
+  font-size: var(--fs-16);
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+.statement {
+  font-family: var(--font-display);
+  font-size: var(--fs-20);
+  line-height: 1.25;
+  font-weight: 500;
+}
+
+.muted {
+  color: var(--ink-2);
+}
+
+.dim {
+  color: var(--ink-3);
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+}

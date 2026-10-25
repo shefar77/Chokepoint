@@ -1,0 +1,137 @@
+.intro-container {
+  position: fixed;
+  inset: 0;
+  background-color: var(--paper, #f3efe6);
+  color: var(--ink, #16140f);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--font-display, 'Newsreader', serif);
+  z-index: 999999;
+  overflow: hidden;
+}
+
+.intro-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  max-width: 900px;
+  padding: 40px;
+}
+
+.intro-title {
+  font-size: 72px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0;
+  line-height: 1.1;
+  border-bottom: 2px solid var(--ink, #16140f);
+  padding-bottom: 16px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.intro-subtitle {
+  font-family: var(--font-ui, 'IBM Plex Sans', sans-serif);
+  font-size: 20px;
+  color: var(--ink-2, #4a463b);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+}
+
+.team-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px dashed var(--rule-soft, #bdb5a1);
+  width: 100%;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s;
+}
+
+.team-name {
+  font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  background: var(--ink, #16140f);
+  color: var(--paper, #f3efe6);
+  padding: 4px 12px;
+  border-radius: 2px;
+}
+
+.members {
+  font-family: var(--font-ui, 'IBM Plex Sans', sans-serif);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--ink, #16140f);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.members .dot {
+  color: var(--threat, #c8321b);
+}
+
+.track-info {
+  font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+  font-size: 12px;
+  color: var(--ink-3, #857f70);
+  margin-top: 20px;
+  opacity: 0;
+  transition: opacity 0.8s ease 0.6s;
+}
+
+/* Animations based on state */
+.step-1 .intro-title,
+.step-2 .intro-title,
+.step-3 .intro-title {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.step-1 .intro-subtitle,
+.step-2 .intro-subtitle,
+.step-3 .intro-subtitle {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.step-2 .team-info,
+.step-3 .team-info {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.step-3 .track-info {
+  opacity: 1;
+}
+
+.scan-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(200, 50, 27, 0.3);
+  animation: scan 4s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(1080px); }
+}

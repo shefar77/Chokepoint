@@ -1,0 +1,73 @@
+/* CHOKEPOINT design tokens. One light "paper" theme, done properly. */
+
+:root {
+  /* Surfaces */
+  --paper: #f3efe6;
+  --paper-2: #eae5d8;
+  --paper-3: #ddd6c5;
+
+  /* Ink */
+  --ink: #16140f;
+  --ink-2: #4a463b;
+  --ink-3: #857f70;
+
+  /* Rules */
+  --rule: #1b1913;
+  --rule-soft: #bdb5a1;
+
+  /* Semantics */
+  --threat: #c8321b;
+  --threat-wash: #f0d5cc;
+  --caution: #a8741a;
+  --safe: #3e6b4d;
+  --structure: #1f3345;
+  --accept: #6b5e86;
+
+  /* Type */
+  --font-display: 'Newsreader', 'Iowan Old Style', Georgia, serif;
+  --font-ui: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+
+  --fs-11: 11px;
+  --fs-12: 12px;
+  --fs-13: 13px;
+  --fs-14: 14px;
+  --fs-16: 16px;
+  --fs-20: 20px;
+  --fs-28: 28px;
+  --fs-44: 44px;
+  --fs-base: 13.5px;
+  --lh-base: 1.45;
+
+  /* Space: 4px rhythm, 24px gutter */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --gutter: 24px;
+
+  /* Geometry */
+  --radius: 2px;
+  --hair: 1px;
+  --control-h: 28px;
+  --pane-left: 26%;
+  --pane-right: 26%;
+
+  /* Motion */
+  --t-fast: 80ms;
+  --t-row: 120ms;
+  --t-stamp: 160ms;
+  --t-march: 2.4s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --t-fast: 0ms;
+    --t-row: 0ms;
+    --t-stamp: 0ms;
+    --t-march: 0s;
+  }
+}

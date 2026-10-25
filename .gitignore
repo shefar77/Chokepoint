@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ruff_cache/
+.pytest_cache/
+
+# Node
+node_modules/
+frontend/dist/
+.vite/
+
+# Local config and output
+.env
+outbox/
+data/
+
+video/
+
+MEMORY.md.final
+MEMORY.md.updates
+
+PRD.md
+hacktoberfest-hackday-jprxhis-participant-guide.pdf
+
