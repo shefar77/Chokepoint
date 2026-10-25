@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: chokepoint
+    runtime: docker
+    dockerfilePath: ./Dockerfile.render
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: AGENT_MODE
+        value: live
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_MODEL
+        value: gemini-2.5-flash-lite
+      - key: EMBEDDINGS
+        value: none
+      - key: SQLITE_PATH
+        value: /data/chokepoint.db
+      - key: MCP_URL
+        value: http://127.0.0.1:8765/mcp
+      - key: CORS_ORIGINS
+        value: "*"
