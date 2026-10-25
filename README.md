@@ -1,6 +1,6 @@
 # CHOKEPOINT
 
-A repository-focused, graph-based security analysis and remediation-prioritization system that cuts attack paths instead of ranking flat CVEs. | **Track:** Distributed Multi-Agent Systems & Local Inference Agents | **Team:** Team CHOKEPOINT (Vaibhav Tandon & members)
+A repository-focused, graph-based security analysis and remediation-prioritization system that cuts attack paths instead of ranking flat CVEs. | **Track:** Distributed Multi-Agent Systems & Local Inference Agents | **Team:** Team CHOKEPOINT (Vaibhav Tandon , Jay Dosi and Farhan Sheikh)
 
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688?style=flat&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![React](https://img.shields.io/badge/React-18.3+-61DAFB?style=flat&logo=react&logoColor=black)](https://react.dev)
@@ -12,6 +12,9 @@ A repository-focused, graph-based security analysis and remediation-prioritizati
 ---
 
 ## Problem Statement & Target User
+
+## PS Track
+Distributed Multi-Agent Systems
 
 ### Target User
 AppSec engineers, security architects, DevSecOps teams, and software developers maintaining complex microservice architectures and software repositories.
