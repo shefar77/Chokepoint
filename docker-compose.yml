@@ -8,8 +8,11 @@ services:
       - ollama-data:/root/.ollama
     environment:
       - OLLAMA_HOST=0.0.0.0
-      - OLLAMA_NUM_PARALLEL=2
-      - OLLAMA_MAX_LOADED_MODELS=2
+      # The agent pipeline drives one model sequentially; a second parallel slot
+      # only doubles KV-cache memory and destabilises gemma3's sliding-window
+      # attention (llama-server EOF/crash), so keep a single slot.
+      - OLLAMA_NUM_PARALLEL=1
+      - OLLAMA_MAX_LOADED_MODELS=1
     healthcheck:
       test: ["CMD", "ollama", "list"]
       interval: 30s
