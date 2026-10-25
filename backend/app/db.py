@@ -19,6 +19,7 @@ import logging
 import sqlite3
 import threading
 from contextlib import contextmanager
+from pathlib import Path
 from typing import Any, Iterator
 
 from .config import settings
@@ -36,6 +37,7 @@ def _thread_id() -> int:
 
 
 def _connect() -> sqlite3.Connection:
+    Path(settings.sqlite_path).parent.mkdir(parents=True, exist_ok=True)
     conn = sqlite3.connect(
         settings.sqlite_path,
         check_same_thread=False,

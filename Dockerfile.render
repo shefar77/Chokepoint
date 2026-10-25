@@ -21,13 +21,14 @@ FROM python:3.11-slim
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PYTHONPATH=/app \
     PORT=10000
 
 WORKDIR /app
 
-# Install system dependencies: curl, git, nginx, procps
+# Install system dependencies: curl, git, nginx, procps, dos2unix
 RUN apt-get update \
- && apt-get install -y --no-install-recommends curl git nginx procps \
+ && apt-get install -y --no-install-recommends curl git nginx procps dos2unix \
  && rm -rf /var/lib/apt/lists/*
 
 # Install Python backend dependencies
@@ -46,15 +47,16 @@ COPY backend/pyproject.toml ./
 # Copy compiled frontend assets from Stage 1 into Nginx web root
 COPY --from=frontend-builder /app/frontend/dist /usr/share/nginx/html
 
-# Copy Nginx proxy configuration
+# Copy Nginx proxy configuration and delete Debian default site
 COPY frontend/nginx.conf /etc/nginx/conf.d/default.conf
+RUN rm -f /etc/nginx/sites-enabled/default
 
 # Create standard data directories
 RUN mkdir -p /data/outbox /data/graphify-workspaces /data/codebases
 
-# Copy and configure entrypoint
+# Copy and configure entrypoint script
 COPY render-entrypoint.sh /app/render-entrypoint.sh
-RUN chmod +x /app/render-entrypoint.sh
+RUN dos2unix /app/render-entrypoint.sh && chmod +x /app/render-entrypoint.sh
 
 # Render dynamically sets PORT; expose default web ports
 EXPOSE 10000 8080 8000 8765
