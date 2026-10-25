@@ -1,0 +1,134 @@
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: chokepoint-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+      - OLLAMA_NUM_PARALLEL=2
+      - OLLAMA_MAX_LOADED_MODELS=2
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
+    restart: unless-stopped
+
+  mcp:
+    build:
+      context: ./backend
+    container_name: chokepoint-mcp
+    command:
+      - python
+      - -m
+      - mcp_server.server
+      - --transport
+      - streamable-http
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8765"
+    environment:
+      MCP_HOST: 0.0.0.0
+      MCP_PORT: "8765"
+      EMBEDDINGS: ${EMBEDDINGS:-fastembed}
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-BAAI/bge-small-en-v1.5}
+      OUTBOX_DIR: /data/outbox
+      SQLITE_PATH: /data/chokepoint.db
+      GRAPHIFY_PATH: ${GRAPHIFY_PATH:-graphify}
+      GRAPHIFY_WORKSPACE: /data/graphify-workspaces
+      TRIVY_PATH: ${TRIVY_PATH:-trivy}
+      SEMGREP_PATH: ${SEMGREP_PATH:-semgrep}
+      SEED_SCALE: ${SEED_SCALE:-1}
+      OLLAMA_BASE_URL: http://ollama:11434
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-gemma3:4b}
+    volumes:
+      - outbox:/data
+      - graphify-workspace:/data/graphify-workspaces
+      - ./data/codebases:/data/codebases
+      - ./backend/app:/app/app
+      - ./backend/mcp_server:/app/mcp_server
+    ports:
+      - "8765:8765"
+    depends_on:
+      ollama:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import socket; socket.create_connection(('127.0.0.1', 8765), 3).close()"
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 15s
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+    container_name: chokepoint-backend
+    environment:
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-2.5-flash-lite}
+      AGENT_MODE: ${AGENT_MODE:-live}
+      MCP_URL: ${MCP_URL:-http://mcp:8765/mcp}
+      EMBEDDINGS: ${EMBEDDINGS:-fastembed}
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-BAAI/bge-small-en-v1.5}
+      OUTBOX_DIR: /data/outbox
+      SQLITE_PATH: /data/chokepoint.db
+      GRAPHIFY_PATH: ${GRAPHIFY_PATH:-graphify}
+      GRAPHIFY_WORKSPACE: /data/graphify-workspaces
+      TRIVY_PATH: ${TRIVY_PATH:-trivy}
+      SEMGREP_PATH: ${SEMGREP_PATH:-semgrep}
+      SLACK_WEBHOOK_URL: ${SLACK_WEBHOOK_URL:-}
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+      GITHUB_REPO: ${GITHUB_REPO:-}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:8080,http://127.0.0.1:8080,http://localhost:5173}
+      OLLAMA_BASE_URL: http://ollama:11434
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-gemma3:4b}
+    volumes:
+      - outbox:/data
+      - graphify-workspace:/data/graphify-workspaces
+      - ./data/codebases:/data/codebases
+      - ./backend/app:/app/app
+      - ./backend/mcp_server:/app/mcp_server
+    ports:
+      - "${BACKEND_PORT:-8050}:8000"
+    depends_on:
+      mcp:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:8000/api/health > /dev/null"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: chokepoint-frontend
+    ports:
+      - "8080:8080"
+    depends_on:
+      backend:
+        condition: service_started
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1:8080/ || exit 1"]
+      interval: 15s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+    restart: unless-stopped
+
+volumes:
+  outbox:
+  graphify-workspace:
+  ollama-data:
