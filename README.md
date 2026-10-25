@@ -41,7 +41,7 @@ Every security team faces the same daily crisis: running traditional vulnerabili
 ### The Main Task
 **Transform vulnerability triage from a disconnected list of CVEs into a directed attack-path graph cover problem.** CHOKEPOINT determines the *minimal set of remediation actions* that severs the *maximal attack-path risk* to crown jewels using greedy weighted set cover over a multi-hop reachability mesh.
 
-- **Live Cloud Demo (Render):** [https://chokepoint.onrender.com](https://chokepoint.onrender.com)
+- **Live Cloud Demo (Render):** [https://chokepoint.onrender.com](https://chokepoint-fr6d.onrender.com/)
 - **Local Application URL:** [http://localhost:8080](http://localhost:8080)
 - **API Documentation & OpenAPI:** [http://localhost:8050/docs](http://localhost:8050/docs)
 
