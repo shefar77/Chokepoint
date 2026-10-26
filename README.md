@@ -113,8 +113,8 @@ sequenceDiagram
 
     Skeptic->>Graph: Read blackboard hypotheses
     Skeptic->>Graph: Verify call graph & active controls (WAF, mTLS, IAM)
-    Graph-->>Skeptic: WAF active on ingress; downstream reachability not verified
-    Skeptic->>Graph: Post Challenge: "Reachability not established; discount exploitability"
+    Graph-->>Skeptic: WAF active on ingress - downstream reachability not verified
+    Skeptic->>Graph: Post Challenge: "Reachability not established - discount exploitability"
 
     Scribe->>Graph: Review all evidence, hypotheses, and challenges
     Scribe->>Graph: Run counterfactual fix simulation on cloned graph
